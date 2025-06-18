@@ -11,20 +11,32 @@ const todoSlice = createSlice({
   name: 'todos',
   initialState,
   reducers: {
-    addTodo: {
-      reducer(state, action) {
-        state.push(action.payload);
-      },
-      prepare(text) {
-        return {
-          payload: {
-            id: nanoid(),
-            text,
-            completed: false
-          }
-        };
-      }
-    },
+    // addTodo: {
+    //   reducer(state, action) {
+    //     state.push(action.payload);
+        
+    //   },
+    
+    //   prepare(text) {
+    //     return {
+    //       payload: {
+    //         id: nanoid(),
+    //         text,
+    //         completed: false
+    //       }
+    //     };
+    //   }
+     
+    // },
+    addTodo: (state, action) => {
+  const newTodo = {
+    id: nanoid(),
+    text: action.payload,
+    completed: false,
+  };
+  state.unshift(newTodo); // 👈 add to start instead of end
+},
+
     toggleTodo(state, action) {
       const todo = state.find(todo => todo.id === action.payload);
       if (todo) {
